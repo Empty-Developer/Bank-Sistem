@@ -1,11 +1,12 @@
 #pragma once
 
+// Stats class declaration
 class Stats {
 private:
-    int totalBalance_;
-    int successCount_;
-    int failedCount_;
-    int activeThreads_;
+    int totalBalance_;      // sum of all account balances
+    int successCount_;      // number of successful transfers
+    int failedCount_;       // number of failed transfers
+    int activeThreads_;     // currently active client threads
 
 public:
     Stats();
@@ -15,4 +16,4 @@ public:
     int getSuccessCount() const;
     int getFailedCount() const;
     int getActiveThreads() const;
-};  
+};

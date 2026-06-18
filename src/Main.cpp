@@ -13,12 +13,14 @@
 using namespace std;
 
 int main() {
+    // create bank and logger instances
     Bank bank;
     Logger logger;
-    atomic<bool> stopFlag(false);
+    atomic<bool> stopFlag(false);  // stop flag for threads
 
     cout << "\nBank System Starting" << endl;
 
+    // create 5 test accounts
     int acc1 = bank.createAccount("Alice");
     int acc2 = bank.createAccount("Bob");
     int acc3 = bank.createAccount("Charlie");
@@ -27,6 +29,7 @@ int main() {
 
     cout << "Created accounts: " << acc1 << ", " << acc2 << ", " << acc3 << ", " << acc4 << ", " << acc5 << endl;
 
+    // start 5 client threads
     vector<thread> clients;
     for (int i = 1; i <= 5; ++i) {
         clients.emplace_back([&bank, &logger, &stopFlag, i]() {
@@ -35,13 +38,14 @@ int main() {
         });
     }
 
+    // interactive command loop
     string command;
     while (true) {
         cout << "\n> ";
         cin >> command;
 
         if (command == "quit") {
-            stopFlag.store(true);
+            stopFlag.store(true);  // signal threads to stop
             break;
         }
         else if (command == "stats") {
@@ -65,6 +69,7 @@ int main() {
         }
     }
 
+    // wait for all client threads to finish
     for (auto& t : clients) {
         t.join();
     }
@@ -73,4 +78,4 @@ int main() {
     
     cout << "\nPress Enter to exit...";
     cin.get();
-}   
+}

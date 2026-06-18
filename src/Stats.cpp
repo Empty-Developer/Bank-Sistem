@@ -1,6 +1,10 @@
 #include "Stats.h"
 #include <iostream>
 
+// STUB: Stats implementation with logging only
+// Returns default values, only console output for demonstration
+
+// constructors
 Stats::Stats() : totalBalance_(0), successCount_(0), failedCount_(0), activeThreads_(0) {
     std::cout << "[Stats] Default constructor" << std::endl;
 }
@@ -11,6 +15,7 @@ Stats::Stats(int totalBalance, int successCount, int failedCount, int activeThre
     std::cout << "[Stats] Constructor" << std::endl;
 }
 
+// getters (stub)
 int Stats::getTotalBalance() const {
     std::cout << "[Stats] getTotalBalance() -> " << totalBalance_ << std::endl;
     return totalBalance_;

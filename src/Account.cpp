@@ -3,6 +3,10 @@
 #include <algorithm>
 #include <shared_mutex>
 
+// STUB: Account implementation with logging only
+// No real balance operations, only console output for demonstration
+
+// constructors
 Account::Account() : id_(0), name_(""), balance_(0.0) {
     std::cout << "[Account] Default constructor" << std::endl;
 }
@@ -26,6 +30,7 @@ Account& Account::operator=(const Account& other) {
     return *this;
 }
 
+// getters (stub)
 int Account::getId() const {
     std::cout << "[Account] getId() -> " << id_ << std::endl;
     return id_;
@@ -41,15 +46,17 @@ double Account::getBalance() const {
     return balance_;
 }
 
+// core operations (stub)
 bool Account::withdraw(double amount) {
     std::cout << "[Account] withdraw(" << amount << ")" << std::endl;
-    return true;
+    return true;  // stub: always returns true
 }
 
 void Account::deposit(double amount) {
     std::cout << "[Account] deposit(" << amount << ")" << std::endl;
 }
 
+// history management (stub)
 void Account::addHistory(const std::string& record) {
     std::cout << "[Account] addHistory: " << record << std::endl;
 }
@@ -57,4 +64,4 @@ void Account::addHistory(const std::string& record) {
 std::vector<std::string> Account::getHistory() const {
     std::cout << "[Account] getHistory()" << std::endl;
     return {};
-}   
+}

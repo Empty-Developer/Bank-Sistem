@@ -4,13 +4,14 @@
 #include <deque>
 #include <shared_mutex>
 
+// Account class declaration
 class Account {
 private:
-    int id_;
-    std::string name_;
-    double balance_;
-    mutable std::shared_mutex mtx_;
-    std::deque<std::string> history_;
+    int id_;                              // unique account identifier
+    std::string name_;                    // account holder name
+    double balance_;                      // current balance
+    mutable std::shared_mutex mtx_;       // per-account mutex for thread safety
+    std::deque<std::string> history_;     // transaction history
 
 public:
     Account();

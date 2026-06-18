@@ -2,13 +2,14 @@
 #include <string>
 #include <chrono>
 
+// Transaction class declaration
 class Transaction {
 private:
-    int fromId_;
-    int toId_;
-    double amount_;
-    std::chrono::system_clock::time_point timestamp_;
-    bool completed_;
+    int fromId_;                                        // source account ID
+    int toId_;                                          // destination account ID
+    double amount_;                                     // transfer amount
+    std::chrono::system_clock::time_point timestamp_;   // when transaction occurred
+    bool completed_;                                    // transaction status
 
 public:
     Transaction();
@@ -21,4 +22,4 @@ public:
     bool isCompleted() const;
     void setCompleted(bool status);
     std::string toString() const;
-};  
+};
