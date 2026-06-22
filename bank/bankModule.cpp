@@ -1,6 +1,3 @@
-#include "Account.h"
-#include "Stats.h"
-
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -9,6 +6,15 @@
 #include <algorithm>
 
 using namespace std;
+
+/*
+  where you finished
+  pls delete this class and join all in main cpp file EGOR
+*/ 
+
+// temporary class
+class Account;
+class Stats;
 
 class Bank {
   private:
@@ -44,16 +50,6 @@ class Bank {
 
     return id;
   }
-
-  vector<int> getAccountIds() {
-    shared_lock lock(accountsMtx);
-    vector<int> ids;
-    for (const auto& [id, account] : accounts) {
-      ids.push_back(id);
-    }
-    return ids;
-  }
-
 
   bool transfer(int from, int to, double amount) {
     if (amount <= 0){
@@ -119,7 +115,7 @@ class Bank {
   }
 
   Stats getStats() {
-    double totalBalance = 0.0;
+    int totalBalance = 0;
 
     shared_lock lock(accountsMtx);
 
@@ -129,4 +125,6 @@ class Bank {
 
     return Stats(totalBalance, successCount, failedCount, 0);
   }
-};
+}
+
+
