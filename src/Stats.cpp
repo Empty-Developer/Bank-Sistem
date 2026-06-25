@@ -1,6 +1,8 @@
 #include "Stats.h"
 #include <sstream>
 
+using namespace std;
+
 // Constructor: initialize all counters with zeros
 Stats::Stats() 
     : totalBalance(0.0)
@@ -38,8 +40,8 @@ int Stats::getActiveClientThreads() const {
 }
 
 // Formatted representation of statistics as a string
-std::string Stats::toString() const {
-    std::stringstream ss;
+string Stats::toString() const {
+    stringstream ss;
     ss << "=== СТАТИСТИКА БАНКА ===\n"
        << "Суммарный баланс: " << totalBalance << "\n"
        << "Успешных транзакций: " << successTransactions << "\n"
@@ -49,7 +51,7 @@ std::string Stats::toString() const {
 }
 
 // Overloading the output operator for convenience
-std::ostream& operator<<(std::ostream& os, const Stats& stats) {
+ostream& operator<<(ostream& os, const Stats& stats) {
     os << stats.toString();
     return os;
 }
