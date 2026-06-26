@@ -45,6 +45,7 @@ The project follows a **modular monolith** design with **4 core modules**:
 | **Facade** | Bank hides synchronization complexity from Client |
 | **RAII** | Automatic mutex management via `lock_guard` / `unique_lock` |
 | **Single Responsibility** | Each class has one clear responsibility |
+| **Ordered Locking** | Mutexes always acquired in ID order to prevent deadlocks |
 
 ## Thread Safety
 
