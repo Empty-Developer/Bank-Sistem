@@ -6,7 +6,6 @@ Console-based C++ application simulating a multi-threaded banking system with co
 
 - C++17 compatible compiler
 - Thread support (pthread for Linux/Mac, native for Windows)
-- CMake 3.10+ (optional)
 
 ## Commands
 
@@ -16,7 +15,7 @@ Console-based C++ application simulating a multi-threaded banking system with co
 | `stats` | Show system statistics |
 | `history ID` | Show transaction history for account |
 | `balance ID` | Show account balance |
-| `deposit ID amount` | Deposit money to account |
+| `help` | Show available commands |
 | `quit` | Stop system and exit |
 
 ## Architecture
@@ -28,17 +27,15 @@ The project follows a **modular monolith** design with **4 core modules**:
 | **Account** | Single account management (balance, history, per-account mutex) |
 | **Bank** | Account registry, transfers, statistics, top-N queries |
 | **Client** | Thread client performing random operations |
-| **Logger** | Thread-safe console/file output |
-
+| **Logger** | Thread-safe file output |
 
 ## Algorithms
 
 | Feature | Implementation | Complexity |
 |---------|---------------|------------|
 | Top-N Accounts | `std::partial_sort` | O(k log N) |
-| Transaction History | `std::deque` with 50 entry limit | O(1) push/pop |
+| Transaction History | `std::deque` | O(1) push/pop |
 | Account Lookup | `std::unordered_map` | O(1) average |
-| History Sorting | `std::sort` by timestamp | O(n log n) |
 
 ## Design Patterns
 
@@ -58,21 +55,10 @@ The project follows a **modular monolith** design with **4 core modules**:
 - **Atomic counters** - lock-free statistics increments
 - **Atomic stop flag** - safe thread termination
 
+## Quick Start
 
-## Example Output
-
-```
-[09:39:30] [INFO] Created account #1001 for Alice
-[09:39:30] [INFO] Deposited 1000.000000 to account #1001
-[09:39:30] [INFO] Created account #1002 for Bob
-[09:39:30] [INFO] Deposited 1000.000000 to account #1002
-
-Bank System Started
-Active clients: 4
-Commands: top N, stats, history ID, balance ID, deposit ID amount, quit
-
-[09:39:30] [INFO] Client started
-[09:39:30] [INFO] Transfer 294.045240 from #1001 to #1002
-[09:39:30] [INFO] Balance check: account #1002 = 1294.045240
-```
-
+1. Run `start.bat` to build and launch the application
+2. Two consoles will open:
+   - **Bank Menu** - for commands input
+   - **Bank Logs** - for real-time transaction logs
+3. Enter commands in the menu console
