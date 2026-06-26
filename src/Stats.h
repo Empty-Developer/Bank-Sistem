@@ -1,16 +1,32 @@
-#pragma once
+#ifndef STATS_H
+#define STATS_H
 
-// Stats class declaration
-class Stats {
-public: 
-    double totalBalance;      // sum of all account balances
-    long long successTransactions;      // number of successful transfers
-    long long failedTransactions;       // number of failed transfers
-    int activeClientThreads;     // currently active client threads
+#include <string>
+#include <ostream>
+
+/**
+ * Structure for storing general bank statistics
+ * Complies with requirements: totalBalance, successTransactions, 
+ * failedTransactions, activeClientThreads
+ */
+struct Stats {
+    double totalBalance;              // Total balance of all accounts
+    long long successCount;          // Number of successful transactions
+    long long failedCount;          // Number of rejected transactions
+    int activeClientThreads;       // Number of active client streams
 
     Stats();
     
-    Stats(double tb, long long st, long long ft, int act);
+    void updateStats(double balance, int success, int failed, int activeThreads);
     
+    double getTotalBalance() const;
+    long long getSuccessTransactions() const;
+    long long getFailedTransactions() const;
+    int getActiveClientThreads() const;
     
+    std::string toString() const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Stats& stats);
+
+#endif

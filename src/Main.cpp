@@ -3,7 +3,6 @@
 #include <chrono>
 #include <vector>
 #include <atomic>
-#include <string>
 
 #include "Account.h"
 #include "Stats.h"
@@ -26,6 +25,12 @@ int main() {
     int acc3 = bank.createAccount("Charlie");
     int acc4 = bank.createAccount("Diana");
     int acc5 = bank.createAccount("Eve");
+
+    bank.depositToAccount(acc1, 1000);
+    bank.depositToAccount(acc2, 1000);
+    bank.depositToAccount(acc3, 1000);
+    bank.depositToAccount(acc4, 1000);
+    bank.depositToAccount(acc5, 1000);
 
     cout << "Created accounts: " << acc1 << ", " << acc2 << ", " << acc3 << ", " << acc4 << ", " << acc5 << endl;
 
@@ -50,23 +55,69 @@ int main() {
         }
         else if (command == "stats") {
             Stats s = bank.getStats();
-            cout << "Total Balance: " << s.totalBalance << endl;
-            cout << "Success: " << s.successTransactions << endl;
-            cout << "Failed: " << s.failedTransactions << endl;
-            cout << "Active Threads: " << s.activeClientThreads << endl;
+            cout << "Total Balance: " << s.getTotalBalance() << endl;
+            cout << "Success: " << s.getSuccessTransactions() << endl;
+            cout << "Failed: " << s.getFailedTransactions() << endl;
+            cout << "Active: " << s.getActiveClientThreads() << endl;
         }
         else if (command == "top") {
-            int N;
-            cin >> N;
-            auto top = bank.topAccounts(N);
-            cout << "Top " << N << " accounts:" << endl;
-            for (auto* acc : top) {
-                cout << "  " << acc->getId() << " (" << acc->getName() 
-                     << "): $" << acc->getBalance() << endl;
+            string input;
+            cin >> input;
+            
+            try {
+                int N = stoi(input);
+                if (N <= 0) {
+                    cout << "Please enter a positive number." << endl;
+                    continue;
+                }
+                
+                auto top = bank.topAccounts((size_t)N);
+                if (top.empty()) {
+                    cout << "No accounts found." << endl;
+                } else {
+                    cout << "Top " << N << " accounts:" << endl;
+                    for (auto* acc : top) {
+                        cout << "  " << acc->getId() << " (" << acc->getName() 
+                             << "): $" << acc->getBalance() << endl;
+                    }
+                }
+            } catch (...) {
+                cout << "Invalid input. Please enter a number. Example: top 3" << endl;
             }
         }
+        else if (command == "balance") {
+            int id;
+            cin >> id;
+            double balance = bank.getBalance(id);
+            if (balance < 0) {
+                cout << "Account not found." << endl;
+            } else {
+                cout << "Balance: $" << balance << endl;
+            }
+        }
+        else if (command == "history") {
+            int id;
+            cin >> id;
+            auto history = bank.getHistory(id);
+            if (history.empty()) {
+                cout << "No history found." << endl;
+            } else {
+                for (const auto& record : history) {
+                    cout << "  " << record << endl;
+                }
+            }
+        }
+        else if (command == "help") {
+            cout << "\nAvailable commands:" << endl;
+            cout << "  stats          - show statistics" << endl;
+            cout << "  top N          - show top N accounts" << endl;
+            cout << "  balance ID     - show account balance" << endl;
+            cout << "  history ID     - show transaction history" << endl;
+            cout << "  help           - show this help" << endl;
+            cout << "  quit           - exit program" << endl;
+        }
         else {
-            cout << "Unknown command. Available: stats, top N, quit" << endl;
+            cout << "Unknown command. Type 'help' for available commands." << endl;
         }
     }
 
@@ -76,7 +127,5 @@ int main() {
     }
 
     cout << "Bank System Shutdown" << endl;
-    
-    cout << "\nPress Enter to exit...";
-    cin.get();
+    cout << "Logs saved to bank.log" << endl;
 }
