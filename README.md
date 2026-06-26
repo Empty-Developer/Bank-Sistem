@@ -29,19 +29,12 @@ The project follows a **modular monolith** design with **4 core modules**:
 | **Client** | Thread client performing random operations |
 | **Logger** | Thread-safe file output |
 
-
-## Contributors
-
-<a href="https://github.com/Empty-Developer/Bank-System/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Empty-Developer/Bank-System" />
-</a>
-
 ## Algorithms
 
 | Feature | Implementation | Complexity |
 |---------|---------------|------------|
 | Top-N Accounts | `std::partial_sort` | O(k log N) |
-| Transaction History | `std::deque` | O(1) push/pop |
+| Transaction History | `std::deque`   | O(1) push/pop |
 | Account Lookup | `std::unordered_map` | O(1) average |
 
 ## Design Patterns
