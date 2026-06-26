@@ -62,3 +62,9 @@ The project follows a **modular monolith** design with **4 core modules**:
    - **Bank Menu** - for commands input
    - **Bank Logs** - for real-time transaction logs
 3. Enter commands in the menu console
+
+## Contributors
+
+<a href="https://github.com/Empty-Developer/Bank-System/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Empty-Developer/Bank-System" />
+</a>
